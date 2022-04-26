@@ -1,0 +1,227 @@
+@use '@scss/tailwind';
+
+//VARIABLES
+$vueBlue: #35495e;
+$vueGreen: #42b883;
+$gray100: #f2f2f2;
+$gray200: #d3d3d3;
+$gray600: #888888;
+$warning: #FF4A4A;
+$yellow: #FBAE17;
+
+$fontBody: 'Space Mono', monospace;
+$fontHeading: 'Space Grotesk', sans-serif;
+
+$bounce: all 0.3s cubic-bezier(.54,-0.55,.67,2.04);
+$base: all 0.3s ease-in-out;
+
+$gap: 2rem;
+
+//BASE
+html {
+  font-size: 10px;
+}
+body {
+  font-family: $fontBody;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $fontHeading;
+  font-weight: 700;
+}
+
+h1 {
+  color: $vueGreen;
+  font-size: 6rem;
+}
+
+//COMPONENTS
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+  flex-flow: row wrap;
+
+  > .input__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $gap;
+
+    flex: 1 0 75%;
+
+    .input__group {
+      display: flex;
+      flex-direction: column;
+      flex: 1 0 calc( 50% - $gap);
+    }
+  }
+}
+
+input,
+button {
+  color: white;
+  font-size: 1.25rem;
+
+  border-radius: 0.5rem;
+  border-style: solid;
+
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+}
+input {
+  width: 100%;
+  background-color: $vueGreen;
+
+  border-color: $gray200;
+  border-width: 0.1rem;
+
+  margin-block-start: 0.5rem;
+
+  &::placeholder {
+    color: white;
+    opacity: 0.75;
+  }
+
+  &:focus,
+  &:active {
+    outline: 0.2rem solid $vueBlue;
+    box-shadow: 0.2rem 0.2rem 0.5rem rgba($vueBlue, 0.2);
+  }
+}
+
+label {
+  // display: block;
+
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+button {
+  background-color: $vueBlue;
+  border-color: $vueBlue;
+  border-width: 0.2rem;
+
+  margin-top: auto;
+  transition: $base;
+
+  &:hover {
+    color: $vueBlue;
+    font-weight: 700;
+    background-color: transparent;
+  }
+}
+
+.toast {
+  $width: 40rem;
+
+  position: absolute;
+  top: 3vh;
+  left: calc(50vw - ($width / 2));
+
+  color: white;
+  font-size: 1.8rem;
+  text-align: center;
+
+  max-width: $width;
+  width: 100%;
+
+  border-radius: 1rem;
+  background-color: $warning;
+
+  padding-inline: 3.2rem;
+  padding-block: 1.8rem;
+  box-shadow: 0.3rem 0.3rem 1rem rgba($vueBlue, 0.5);
+
+  h2 {
+    font-family: $fontBody;
+    font-weight: 400;
+  }
+}
+
+.dropzone {
+  flex: 1 0 calc(33% - $gap);
+
+  .zone__title {
+    color: white;
+    font-size: 1.25rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+
+    background-color: $gray600;
+    border-start-end-radius: 0.5rem;
+    border-start-start-radius: 0.5rem;
+
+    max-width: 50%;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+
+    h4 {
+      font-family: $fontBody;
+      font-weight: 400;
+    }
+  }
+
+  // &:first-of-type .zone__title {
+  //   background-color: $warning;
+  // }
+  // &:nth-of-type(2) .zone__title {
+  //   color: $vueBlue;
+  //   background-color: $yellow;
+  // }
+  // &:last-of-type .zone__title {
+  //   background-color: $vueGreen;
+  // }
+  
+  .zone__target {
+    min-height: 5rem;
+    background-color: $gray100;
+    padding: 1.25rem;
+  }
+}
+
+//UTILITIES
+.alt__title {
+  color: $vueBlue;
+  font-weight: 400;
+}
+.blue {
+  color: $vueBlue;
+}
+.green {
+  color: $vueGreen;
+}
+.gray {
+  color: $gray600;
+}
+
+//BLOCK
+.container__md {
+  max-width: 92rem;
+  width: 100%;
+}
+.form__container {
+  background-color: $gray100;
+}
+
+main {
+  max-width: 114rem;
+  width: 100%;
+  
+  display: flex;
+  justify-content: space-between;
+  gap: $gap;
+  flex-flow: row wrap;
+
+  padding-inline: 5rem;
+  padding-block: 7rem;
+  margin-inline: auto;
+}
+
+//ANIMATIONS
