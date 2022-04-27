@@ -13,7 +13,7 @@
     </div>
     <div class="[ form__container ] [ px-20 py-4 ]">
       <div class="[ mx-auto ] [ container__md ]">
-        <form>
+        <form ref="requestForm">
           <div class="[ input__wrapper ]">
             <div class="[ input__group ]">
               <label for="">Feature request title</label>
@@ -26,7 +26,7 @@
             <div class="[ input__group ]">
               <label for="">Feature request due date</label>
               <input
-                v-model="formData.date"
+                v-model="formData.dateTime"
                 id="date"
                 type="datetime-local">
             </div>
@@ -40,31 +40,27 @@
 
 <script setup>
   import { ref } from 'vue'
+  import { handleError, createUUID, formatDate } from '@/src/composables/helpers.js'
+  import { data } from '@/src/composables/mock-data'
   const formData = ref({})
   const error = ref('')
   const showToast = ref(false)
-
-  const handleError = () => {
-    showToast.value = true
-    setTimeout(() => showToast.value = false, 3000)
-  }
+  const requestForm = ref(null)
 
   const handleSubmit = () => {
-    const data = formData.value
-    if ( !data?.date || !data.value?.title ) {
-      if ( !data?.date && !data?.title ) {
-        error.value = 'Feature requests require a title and desired due date'
-        return handleError()
-      }
-      if ( !data?.title ) {
-        error.value = 'Please provide a title for this feature request'
-        return handleError()
-      }
-      if ( !data?.date ) {
-        error.value = 'Please provide a desired due date for this feature request'
-        return handleError()
-      }
+    const err = handleError(formData.value)
+    if ( err ) {
+      error.value = err
+      showToast.value = true
+      return setTimeout(() => showToast.value = false, 3000)
     }
+    formData.value.id = createUUID()
+    formData.value.requestDate = formatDate(formData.value.dateTime)
+    formData.value.owner = 'A'
+    formData.value.prevOwner = 'A'
+
+    data.value.push(formData.value)
+    formData.value = {}
   }
 </script>
 

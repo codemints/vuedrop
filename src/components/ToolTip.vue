@@ -17,8 +17,12 @@
   .tooltip {
     position: absolute;
     top: -200%;
+    left: 50%;
+    transform: translateX(-50%);
     
     color: white;
+    font-size: 1.05rem;
+    font-family: $fontBody;
     white-space: nowrap;
     
     background-color: $vueBlue;
@@ -26,6 +30,7 @@
     
     padding-inline: 1rem;
     padding-block: 0.25rem;
+
 
     &:after {
       content: '';
