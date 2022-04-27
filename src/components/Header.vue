@@ -36,10 +36,6 @@
       </div>
     </div>
   </header>
-  <div class="flex flex-col items-center text-2xl">
-    <h2 >form data object</h2>
-    <pre >{{ formData }}</pre>
-  </div>
 </template>
 
 <script setup>

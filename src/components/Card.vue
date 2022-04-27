@@ -1,7 +1,9 @@
 <template>
   <div
-    @dragstart="onDrag($event, data)"
+    @dragstart="onDrag($event, id, thisElement.id)"
     draggable="true"
+    ref="thisElement"
+    :id="`card__${id}`"
     class="[ card__wrapper ][ cursor-pointer ]">
     <div class="[ card__drag ][ cursor-move ]">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -14,12 +16,12 @@
     <div class="card__content">
       <div class="[ card__label ][ cursor-pointer ]"></div>
       <div class="[ card__body ][ cursor-pointer ]">
-        <h3 class="[ card__title ][ cursor-pointer ]">{{ data.title }}</h3>
+        <h3 class="[ card__title ][ cursor-pointer ]">{{ title }}</h3>
         <h5>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          {{ data.time }}
+          {{ date }}
         </h5>
       </div>
       <div
@@ -42,12 +44,21 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import ToolTip from '@comps/ToolTip.vue'
   import { data } from '@/src/composables/data-state'
   import { onDrag } from '@/src/composables/helpers'
 
+  const props = defineProps([
+    'this',
+    'card',
+    'date',
+    'title',
+    'id',
+  ])
+  
   const hovered = ref(false)
+  const thisElement = ref(null)
 
 </script>
 
@@ -57,6 +68,10 @@
   $radius: 0.5rem;
   .card__wrapper {
     display: flex;
+
+    &:not(:first-of-type) {
+      margin-top: 0.75rem;
+    }
 
     &:hover .card__drag {
       max-width: 2.4rem;

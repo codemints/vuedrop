@@ -38,15 +38,19 @@ export const formatDate = (date) => {
   return `${day} ${month} ${year} @ ${time}`
 }
 
-export const onDrag = (e, item) => {
+export const onDrag = (e, objID, elID) => {
+  // console.log(objID, elID)
   e.dataTransfer.dropEffect = 'move'
   e.dataTransfer.effectAllowed = 'move'
-  e.dataTransfer.setData('itemId', item.id)
-  console.log(e)
+  e.dataTransfer.setData('objID', objID)
+  e.dataTransfer.setData('elID', elID)
 }
 
-export const onDrop = (e, list) => {
-  e.preventDefault()
-  console.log(e, list)
-  // const itemId = e.dataTransfer.getData('itemId')
+export const onDrop = (e, card, zoneID) => {
+  const objID = e.dataTransfer.getData('objID')
+  const elID = e.dataTransfer.getData('elID')
+  const el = document.getElementById(elID)
+  const targ = document.getElementById(zoneID)
+  
+  targ.append(el)
 }
