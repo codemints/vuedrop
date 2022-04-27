@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@vue-hero-icons/outline": "^1.7.2",
+    "netlify": "^11.0.1",
+    "netlify-cli": "^10.1.0",
     "postcss-import": "^14.1.0",
     "vue": "^3.2.25"
   },

@@ -198,11 +198,11 @@
       }
 
       h3, h5 {
-        color: $gray200;
+        color: darken($gray200, 15%);
       }
 
       svg {
-        stroke: $gray200;
+        stroke: darken($gray200, 15%);
       }
     }
 
