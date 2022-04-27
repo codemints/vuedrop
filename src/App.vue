@@ -7,20 +7,27 @@
       </div>
       
       <div
-        @drop.prevent="onDrop($event, 'A', cardA.id)"
+        @drop.prevent="onDrop($event, 'A', zoneA.id, data)"
         @dragenter="prevent($event)"
         @dragover="prevent($event)"
-        ref="cardA"
+        ref="zoneA"
         id="dropzone__A"
+        data-owner="requested"
         class="[ zone__target ]">
+
         <Card
           v-for="item in data"
           key="item.id"
-          :card="item.card"
-          :date="item.date"
+          :item="item"
+          :card="item.owner"
+          :requestDate="item.requestDate"
           :title="item.title"
-          :id="item.id"
+          :dataID="item.id"
+          :dropZone="zoneA"
+          :dataObj="data"
+          initialClass="requested"
         />
+
       </div>
     </article>
     <article class="[ dropzone ]">
@@ -29,11 +36,12 @@
       </div>
       
       <div
-        @drop.prevent="onDrop($event, 'B', cardB.id)"
+        @drop.prevent="onDrop($event, 'B', zoneB.id, data)"
         @dragenter="prevent($event)"
         @dragover="prevent($event)"
-        ref="cardB"
+        ref="zoneB"
         id="dropzone__B"
+        data-owner="progress"
         class="[ zone__target ]">
 
       </div>
@@ -44,11 +52,12 @@
       </div>
       
       <div
-        @drop.prevent="onDrop($event, 'C', cardC.id)"
+        @drop.prevent="onDrop($event, 'C', zoneC.id, data)"
         @dragenter="prevent($event)"
         @dragover="prevent($event)"
-        ref="cardC"
+        ref="zoneC"
         id="dropzone__C"
+        data-owner="completed"
         class="[ zone__target ]">
 
       </div>
@@ -61,12 +70,12 @@
   import Card from '@comps/Card.vue'
 
   import { ref } from 'vue'
-  import { onDrop } from '@/src/composables/helpers'
+  import { onDrop, getCardItems } from '@/src/composables/helpers'
   import { data } from '@/src/composables/mock-data'
 
-  const cardA = ref(null)
-  const cardB = ref(null)
-  const cardC = ref(null)
+  const zoneA = ref(null)
+  const zoneB = ref(null)
+  const zoneC = ref(null)
 
   const prevent = (e) => {
     e.preventDefault()
