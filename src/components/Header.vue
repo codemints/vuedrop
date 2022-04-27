@@ -36,35 +36,31 @@
       </div>
     </div>
   </header>
+  <div class="flex flex-col items-center text-2xl">
+    <h2 >form data object</h2>
+    <pre >{{ formData }}</pre>
+  </div>
 </template>
 
 <script setup>
   import { ref } from 'vue'
+  import { handleError, createUUID, formatDate } from '@/src/composables/helpers.js'
+  import { data, setData } from '@/src/composables/data-state'
   const formData = ref({})
   const error = ref('')
   const showToast = ref(false)
 
-  const handleError = () => {
-    showToast.value = true
-    setTimeout(() => showToast.value = false, 3000)
-  }
-
   const handleSubmit = () => {
-    const data = formData.value
-    if ( !data?.date || !data.value?.title ) {
-      if ( !data?.date && !data?.title ) {
-        error.value = 'Feature requests require a title and desired due date'
-        return handleError()
-      }
-      if ( !data?.title ) {
-        error.value = 'Please provide a title for this feature request'
-        return handleError()
-      }
-      if ( !data?.date ) {
-        error.value = 'Please provide a desired due date for this feature request'
-        return handleError()
-      }
+    const err = handleError(formData.value)
+    if ( err ) {
+      error.value = err
+      showToast.value = true
+      return setTimeout(() => showToast.value = false, 3000)
     }
+    formData.value.id = createUUID()
+    formData.value.time = formatDate(formData.value.date)
+    formData.value.list = 'A'
+    setData(formData.value)
   }
 </script>
 

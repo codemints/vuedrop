@@ -146,6 +146,8 @@ button {
 }
 
 .dropzone {
+  display: flex;
+  flex-direction: column;
   flex: 1 0 calc(33% - $gap);
 
   .zone__title {
@@ -167,20 +169,10 @@ button {
       font-weight: 400;
     }
   }
-
-  // &:first-of-type .zone__title {
-  //   background-color: $warning;
-  // }
-  // &:nth-of-type(2) .zone__title {
-  //   color: $vueBlue;
-  //   background-color: $yellow;
-  // }
-  // &:last-of-type .zone__title {
-  //   background-color: $vueGreen;
-  // }
   
   .zone__target {
     min-height: 5rem;
+    height: 100%;
     background-color: $gray100;
     padding: 1.25rem;
   }

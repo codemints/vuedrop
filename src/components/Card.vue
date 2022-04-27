@@ -1,5 +1,8 @@
 <template>
-  <div class="[ card__wrapper ][ cursor-pointer ]">
+  <div
+    @dragstart="onDrag($event, data)"
+    draggable="true"
+    class="[ card__wrapper ][ cursor-pointer ]">
     <div class="[ card__drag ][ cursor-move ]">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
@@ -11,12 +14,12 @@
     <div class="card__content">
       <div class="[ card__label ][ cursor-pointer ]"></div>
       <div class="[ card__body ][ cursor-pointer ]">
-        <h3 class="[ card__title ][ cursor-pointer ]">This is a title</h3>
+        <h3 class="[ card__title ][ cursor-pointer ]">{{ data.title }}</h3>
         <h5>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          22 May 2022 @ 5PM
+          {{ data.time }}
         </h5>
       </div>
       <div
@@ -39,11 +42,12 @@
 </template>
 
 <script setup>
-  import { ref, watch } from 'vue'
+  import { ref } from 'vue'
   import ToolTip from '@comps/ToolTip.vue'
+  import { data } from '@/src/composables/data-state'
+  import { onDrag } from '@/src/composables/helpers'
 
   const hovered = ref(false)
-  watch(hovered, (newVal) => console.log(newVal))
 
 </script>
 
