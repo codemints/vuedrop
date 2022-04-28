@@ -9,7 +9,6 @@ export const data = ref([
     // completeDate: null,
     owner: 'A',
     prevOwner: 'A',
-    initial: 'A'
   },
   {
     id: 'zy112b?',
@@ -18,7 +17,6 @@ export const data = ref([
     startDate: '02 Apr 2022 @ 9:03AM',
     owner: 'B',
     prevOwner: 'B',
-    initial: 'B'
   },
   {
     id: 'zyXndb?',
@@ -28,6 +26,5 @@ export const data = ref([
     completeDate: '27 Apr 2022 @ 10:01PM',
     owner: 'C',
     prevOwner: 'C',
-    initial: 'C'
   },
 ])

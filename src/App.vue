@@ -17,7 +17,7 @@
 
         <Card
           v-for="item in getCardItems('A', data)"
-          key="item.id"
+          :key="item.id"
           :item="item"
           :card="item.owner"
           :requestDate="item.requestDate"
@@ -46,7 +46,7 @@
 
         <Card
           v-for="item in getCardItems('B', data)"
-          key="item.id"
+          :key="item.id"
           :item="item"
           :card="item.owner"
           :requestDate="item.requestDate"
@@ -75,7 +75,7 @@
 
         <Card
           v-for="item in getCardItems('C', data)"
-          key="item.id"
+          :key="item.id"
           :item="item"
           :card="item.owner"
           :requestDate="item.requestDate"

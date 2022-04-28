@@ -57,7 +57,7 @@ export const handleDelete = (e, dataID, dataObj) => {
 }
 
 export const getCardItems = (dropZone, itemArray) => {
-  return itemArray.filter(item => item.initial === dropZone)
+  return itemArray.filter(item => item.owner === dropZone)
 }
 
 export const onDrag = (e, objID, elID) => {
