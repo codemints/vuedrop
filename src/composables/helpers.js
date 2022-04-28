@@ -56,11 +56,12 @@ export const handleDelete = (e, dataID, dataObj) => {
   dataObj.splice(dataObj.findIndex(index => index.id === dataID), 1)
 }
 
-export const getCardItems = (card, itemArray) => {
-  return itemArray.filter(item => item.card === card)
+export const getCardItems = (dropZone, itemArray) => {
+  return itemArray.filter(item => item.initial === dropZone)
 }
 
 export const onDrag = (e, objID, elID) => {
+
   e.dataTransfer.dropEffect = 'move'
   e.dataTransfer.effectAllowed = 'move'
   e.dataTransfer.setData('objID', objID)

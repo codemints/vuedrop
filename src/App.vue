@@ -16,7 +16,7 @@
         class="[ zone__target ]">
 
         <Card
-          v-for="item in data"
+          v-for="item in getCardItems('A', data)"
           key="item.id"
           :item="item"
           :card="item.owner"
@@ -44,6 +44,19 @@
         data-owner="progress"
         class="[ zone__target ]">
 
+        <Card
+          v-for="item in getCardItems('B', data)"
+          key="item.id"
+          :item="item"
+          :card="item.owner"
+          :requestDate="item.requestDate"
+          :title="item.title"
+          :dataID="item.id"
+          :dropZone="zoneB"
+          :dataObj="data"
+          initialClass="progress"
+        />
+
       </div>
     </article>
     <article class="[ dropzone ]">
@@ -59,6 +72,19 @@
         id="dropzone__C"
         data-owner="completed"
         class="[ zone__target ]">
+
+        <Card
+          v-for="item in getCardItems('C', data)"
+          key="item.id"
+          :item="item"
+          :card="item.owner"
+          :requestDate="item.requestDate"
+          :title="item.title"
+          :dataID="item.id"
+          :dropZone="zoneC"
+          :dataObj="data"
+          initialClass="completed"
+        />
 
       </div>
     </article>

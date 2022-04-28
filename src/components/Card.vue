@@ -1,6 +1,6 @@
 <template>
   <div
-    @dragstart="onDrag($event, dataID, thisElement.id)"
+    @dragstart="onDrag($event, dataID, thisElement.id, dataObj)"
     draggable="true"
     ref="thisElement"
     :id="`card__${dataID}`"

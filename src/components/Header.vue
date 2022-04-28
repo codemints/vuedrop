@@ -58,6 +58,7 @@
     formData.value.requestDate = formatDate(formData.value.dateTime)
     formData.value.owner = 'A'
     formData.value.prevOwner = 'A'
+    formData.value.initial = 'A'
 
     data.value.push(formData.value)
     formData.value = {}
