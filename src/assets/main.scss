@@ -1,4 +1,5 @@
 @use '@scss/tailwind';
+@use '@scss/drag';
 
 //VARIABLES
 $vueBlue: #35495e;
@@ -16,6 +17,7 @@ $bounce: all 0.3s cubic-bezier(.54,-0.55,.67,2.04);
 $base: all 0.3s ease-in-out;
 
 $gap: 2rem;
+$radius: 0.5rem;
 
 //BASE
 html {
@@ -170,11 +172,12 @@ button {
     }
   }
   
-  .zone__target {
+  .zone {
     min-height: 5rem;
     height: 100%;
     background-color: $gray100;
-    padding: 1.25rem;
+    padding-inline: 1.25rem;
+    padding-bottom: 1.25rem;
   }
 }
 
@@ -217,3 +220,33 @@ main {
 }
 
 //ANIMATIONS
+.drag {
+  position: absolute;
+  width:100%;
+  .card__wrapper {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    transform: rotate(5deg);
+    
+    position: absolute;
+    
+    .card__content {
+      box-shadow: 0.3rem 0.3rem 0.75rem rgba($vueBlue, 30%);
+    }
+    
+    * {
+      pointer-events: none;
+      cursor: grabbing !important;
+      cursor: -moz-grabbing !important;
+      cursor: -webkit-grabbing !important;
+    }
+  }
+}
+.placeholder {
+  background-color: rgba($gray200, 30%);
+  border: 2px dashed $gray200;
+  border-radius: $radius;
+
+  margin-top: 1.25rem;
+}

@@ -12,6 +12,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './'),
       '@scss': path.resolve(__dirname, './src/assets/'),
       '@comps': path.resolve(__dirname, './src/components/'),
+      '@scripts': path.resolve(__dirname, './src/composables/'),
     }
   }
 })

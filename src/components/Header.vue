@@ -9,7 +9,7 @@
     </transition>
     <div class="[ container px-20 py-8 mx-auto ]">
       <h1 class="[ text-center leading-none ]">Vue<span class="[ alt__title ]">Drop</span></h1>
-      <p class="[ text-center uppercase text-2xl mt-8 ][ gray ]"><span class="[ font-bold underline ][ blue ]">HTML drag & drop API</span> implemented in <span class="[ font-bold underline ][ green ]">Vue3</span></p>
+      <p class="[ text-center uppercase text-2xl mt-8 ][ gray ]"><span class="[ font-bold underline ][ blue ]">Custom</span> Drag & Drop Functionality With <span class="[ font-bold underline ][ green ]">Vue3</span></p>
     </div>
     <div class="[ form__container ] [ px-20 py-4 ]">
       <div class="[ mx-auto ] [ container__md ]">
@@ -40,24 +40,23 @@
 
 <script setup>
   import { ref } from 'vue'
-  import { handleError, createUUID, formatDate } from '@/src/composables/helpers.js'
-  import { data } from '@/src/composables/mock-data'
+  import { handleFormError, createUUID, formatFormDate } from '@scripts/submitForm.js'
+  import { data } from '@scripts/data'
   const formData = ref({})
   const error = ref('')
   const showToast = ref(false)
   const requestForm = ref(null)
 
   const handleSubmit = () => {
-    const err = handleError(formData.value)
+    const err = handleFormError(formData.value)
     if ( err ) {
       error.value = err
       showToast.value = true
       return setTimeout(() => showToast.value = false, 3000)
     }
     formData.value.id = createUUID()
-    formData.value.requestDate = formatDate(formData.value.dateTime)
+    formData.value.requestDate = formatFormDate(formData.value.dateTime)
     formData.value.owner = 'A'
-    formData.value.prevOwner = 'A'
 
     data.value.push(formData.value)
     formData.value = {}
