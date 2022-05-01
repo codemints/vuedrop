@@ -9,6 +9,7 @@ const cardData = ref({})
 const $_ = cardData.value
 
 const handleData = (card, zone, obj) => {
+  if ( !zone ) return
   const dataSet = zone.dataset.progress
   const foundItem = obj.find(item => card.id.slice(6) === item.id)
   card.setAttribute('class', dataSet)

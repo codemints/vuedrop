@@ -54,6 +54,7 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-flow: row wrap;
     gap: $gap;
 
     flex: 1 0 75%;
@@ -62,6 +63,7 @@ form {
       display: flex;
       flex-direction: column;
       flex: 1 0 calc( 50% - $gap);
+      min-width: 30rem;
     }
   }
 }
@@ -110,6 +112,9 @@ button {
   border-color: $vueBlue;
   border-width: 0.2rem;
 
+  flex: 1 0 (calc(25% - $gap));
+  min-width: 20rem;
+
   margin-top: auto;
   transition: $base;
 
@@ -151,6 +156,7 @@ button {
   display: flex;
   flex-direction: column;
   flex: 1 0 calc(33% - $gap);
+  min-width: 30rem;
 
   .zone__title {
     color: white;
