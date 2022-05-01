@@ -8,7 +8,8 @@ const cardData = ref({})
 //Shorthand for the CARDDATA ref above
 const $_ = cardData.value
 
-const handleData = (card, zone, obj) => {
+const handleData = (card, obj) => {
+  const zone = $_.placeholder.parentElement
   if ( !zone ) return
   const dataSet = zone.dataset.progress
   const foundItem = obj.find(item => card.id.slice(6) === item.id)
@@ -64,29 +65,37 @@ const createPlaceholder = () => {
  * @returns undefined
  */
 const handlePlaceholder = (sibling, zone) => {
-  //Exit function if not in a drop zone
-  if ( !zone ) return
+  console.log(zone)
+  let currentZone
+  if ( zone === null && $_.placeholder === undefined ) {
+    console.log('this')
+    currentZone = $_.card.parentElement
+  }
+  else currentZone = zone
+
   //Shorthand for this function
   const that = handlePlaceholder
 
   //Last child of current zone
-  const last = zone.lastElementChild
+  let last
+  if ( !that.kill ) last = currentZone.lastElementChild
+  // const last = currentZone.lastElementChild
   
   //Set placeholder on initial click
   if ( $_.card === last && !that.kill ) {
-    $_.prevZone = zone
-    that.kill = initialPlaceholder($_.card, zone, 'append')
+    $_.prevZone = currentZone
+    that.kill = initialPlaceholder($_.card, currentZone, 'append')
   } else if ( $_.card !== last && !that.kill ) {
-    $_.prevZone = zone
+    $_.prevZone = currentZone
     that.kill = initialPlaceholder($_.card, $_.sibling, 'before')
   }
   
   //Create new placeholder when changing zones
-  if ( $_.prevZone !== zone ) {
+  if ( $_.prevZone !== currentZone && currentZone !== null ) {
     $_.placeholder.remove()
     const placeholder = createPlaceholder()
-    zone.append(placeholder)
-    $_.prevZone = zone
+    currentZone.append(placeholder)
+    $_.prevZone = currentZone
   }
   
   //Prevent from firing unless sibling changes
@@ -96,7 +105,7 @@ const handlePlaceholder = (sibling, zone) => {
   $_.placeholder.remove()
   const placeholder = createPlaceholder()
   if ( sibling !== undefined ) sibling.before(placeholder)
-  else zone.append(placeholder)
+  else currentZone.append(placeholder)
 
   $_.prevSibling = sibling
 }
@@ -199,35 +208,35 @@ const dragging = (e) => {
   $_.card.style.top = `${e.clientY - $_.osY}px`
 
   //Add class to style card rotation and absolute positioning
-  $_.card.classList.add('drag')
-
+  
   //Hide card to 'see' element below it
   $_.card.hidden = true
-
+  
   //Return the topmost element under current element
   //Use to 'see' if element is droppable zone
   const elementBelow = document.elementFromPoint(e.clientX, e.clientY)
-
+  
   //Show card once under element is stored
   $_.card.hidden = false
-
+  
   //Get the closest dropzone to the element under current element
   const closestZone = elementBelow.closest('.zone')
-
+  
   //Check to see if current zone is same as closest zone
   if ( $_.curZone !== closestZone ) {
     // if ( $_.curZone ) $_.curZone.style.backgroundColor = ''
 
     $_.curZone = closestZone
-  
+    
     if ( $_.curZone ) {
       // $_.curZone.style.backgroundColor = '#666666'
     }
   }
-
+  
   const nextSibling = getNextSibling($_.curZone, e.clientY)
-
+  
   handlePlaceholder(nextSibling, $_.curZone)
+  $_.card.classList.add('drag')
 }
 
 /**
@@ -242,7 +251,7 @@ const onDrop = (e) => {
   
   //Remove mousemove event handler added in STARTDRAG function
   document.removeEventListener('mousemove', dragging)
-
+  
   //If card hasn't moved, reset and exit function
   if ( Math.round($_.startX) === $_.card.offsetLeft && Math.round($_.startY) === $_.card.offsetTop ) {
     $_.card.classList.remove('drag')
@@ -252,18 +261,20 @@ const onDrop = (e) => {
     return
   }
   
+  //Function call to handle label colors, due dates, and completed dates
+  handleData($_.card, DATA.value)
+
   //Get the current element's nextElementSibling data property
   const type = $_.sibling.dataset.type
   
   //If placeholder exists delete it
   if ( $_.placeholder !== undefined ) $_.placeholder.remove()
+  delete $_.placeholder
   
   //Insert current element in sorted position
   if ( $_.prevSibling === undefined ) $_.prevZone.append($_.card)
   else $_.prevSibling.before($_.card)
 
-  //Function call to handle label colors, due dates, and completed dates
-  handleData($_.card, $_.curZone, DATA.value)
 
   //Remove styles for rotation and absolute positioning
   $_.card.classList.remove('drag')
